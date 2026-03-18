@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>'26년 생명과학사업본부 경영위 워크숍</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red: #8cd630;
+  --red-dim: rgba(140,214,48,0.15);
+  --navy: #1e2b0e; --navy2: #253410; --navy3: #2d3f12;
+  --white: #f9fce6; --muted: rgba(235,252,170,0.6);
+  --border: rgba(210,245,100,0.15);
+  --accent: #d4b800;
+}
+
+html { background: #151e08; }
+body { margin: 0; padding: 0; display: flex; justify-content: center; min-height: 100vh; background: #151e08; }
+
+.app {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--navy); color: var(--white);
+  width: 100vw; max-width: 440px;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  overflow-x: hidden;
+}
+
+.top-bar {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(21,30,8,0.97); border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+.logo-wrap { display: flex; align-items: center; gap: 8px; }
+.lg-circle { width: 30px; height: 30px; background: var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; color: #fff; flex-shrink: 0; }
+.logo-text { font-size: 12px; font-weight: 700; line-height: 1.3; }
+.logo-sub  { font-size: 10px; color: var(--muted); font-weight: 400; }
+.event-pill { background: var(--red); color: #fff; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
+
+.hero { position: relative; width: 100%; height: 210px; overflow: hidden; flex-shrink: 0; }
+.hero-bg { position: absolute; inset: 0; background: url('https://finey1216.github.io/nlc.jpg') center/cover no-repeat; opacity: 0.3; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(160deg, rgba(30,43,14,0.4) 0%, rgba(30,43,14,0.88) 70%); }
+.hero-content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px 16px; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--red); color: #fff; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; margin-bottom: 10px; }
+.hero-title { font-family: 'Noto Sans KR', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 1px; color: #fff; line-height: 1.3; }
+.hero-title span { color: var(--red); }
+.hero-meta { display: flex; gap: 14px; margin-top: 10px; }
+.hero-meta-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: rgba(255,255,255,0.65); }
+
+.tabs { width: 100%; display: flex; background: var(--navy2); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+.tab {
+  flex: 1; padding: 11px 0 10px;
+  text-align: center; font-size: 11px; color: var(--muted);
+  cursor: pointer; border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  user-select: none; -webkit-tap-highlight-color: transparent;
+}
+.tab.active { color: var(--red); border-bottom-color: var(--red); }
+.tab-icon { font-size: 14px; line-height: 1; }
+
+.panel { display: none; width: 100%; }
+.panel.active { display: block; animation: fadeIn 0.22s ease; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:translateY(0); } }
+
+.inner { width: 100%; padding: 20px 16px 40px; }
+.inner > * { width: 100% !important; max-width: 100% !important; }
+
+.sec-title {
+  font-size: 11px; font-weight: 700; color: var(--red);
+  letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex !important; align-items: center; gap: 7px;
+}
+.sec-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.card { background: var(--navy3); border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid var(--border); }
+.info-row { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.info-row:last-child { border-bottom: none; }
+.info-label { color: var(--muted); width: 54px; font-size: 11px; flex-shrink: 0; }
+.info-val   { color: var(--white); font-weight: 500; line-height: 1.5; flex: 1; min-width: 0; }
+.info-sub   { font-size: 11px; color: var(--muted); font-weight: 400; }
+
+.purpose-item {
+  display: flex !important; align-items: center; gap: 10px;
+  padding: 11px 14px;
+  background: var(--red-dim);
+  box-shadow: inset 3px 0 0 var(--red);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 13px; color: var(--white);
+}
+
+.divider { height: 1px !important; background: var(--border); margin: 18px 0; }
+
+.tag {
+  display: inline-block !important;
+  width: auto !important; max-width: none !important;
+  font-size: 10px; background: var(--red-dim); color: var(--red);
+  border: 1px solid rgba(140,214,48,0.3);
+  padding: 3px 9px; border-radius: 20px;
+  margin-bottom: 10px; font-weight: 500;
+}
+
+.route { display: flex !important; align-items: center; margin: 8px 0 14px; }
+.route-stop { display: flex; flex-direction: column; align-items: center; gap: 5px; flex: 1; width: auto !important; }
+.route-dot { width: 38px !important; height: 38px; border-radius: 50%; background: var(--navy3); border: 2px solid var(--red); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.route-name { font-size: 10px; color: var(--muted); text-align: center; line-height: 1.35; width: auto !important; }
+.route-arrow { color: var(--red); font-size: 16px; margin-bottom: 18px; flex-shrink: 0; width: auto !important; }
+.route-note { background: var(--red-dim); border: 1px solid rgba(140,214,48,0.25); border-radius: 8px; padding: 10px 14px; font-size: 12px; color: rgba(240,240,240,0.75); line-height: 1.6; }
+
+.tl-item { display: flex !important; gap: 14px; padding: 0 0 18px; position: relative; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-item::before { content: ''; position: absolute; left: 37px; top: 22px; bottom: 0; width: 1px; background: rgba(140,214,48,0.25); }
+.tl-item:last-child::before { display: none; }
+.tl-left { display: flex !important; flex-direction: column; align-items: center; gap: 4px; width: 40px !important; flex-shrink: 0; }
+.tl-time { font-size: 11px; color: var(--red); font-weight: 700; white-space: nowrap; width: 100% !important; text-align: center; }
+.tl-time.gold { color: #d4b800; }
+.tl-dot { width: 11px !important; height: 11px; border-radius: 50%; background: var(--red); border: 2px solid var(--navy); box-shadow: 0 0 0 2px rgba(140,214,48,0.3); }
+.tl-dot.gold { background: #d4b800; box-shadow: 0 0 0 2px rgba(212,184,0,0.3); }
+.tl-right { flex: 1; padding-top: 2px; min-width: 0; width: auto !important; }
+.tl-title { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+.tl-desc  { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.tl-tag { display: inline-block !important; width: auto !important; font-size: 10px; background: rgba(255,255,255,0.06); color: var(--muted); border: 1px solid var(--border); padding: 2px 8px; border-radius: 10px; margin-top: 5px; }
+
+.map-box {
+  display: flex !important; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  background: var(--navy3); border-radius: 12px; height: 160px;
+  border: 1px solid var(--border); margin-bottom: 12px;
+  text-decoration: none; cursor: pointer; transition: border-color 0.2s;
+}
+.map-box:hover { border-color: var(--red); }
+.map-pin  { font-size: 34px; width: auto !important; }
+.map-name { font-size: 14px; color: var(--white); font-weight: 500; width: auto !important; }
+.map-link { font-size: 11px; color: var(--red); width: auto !important; }
+
+.transport-item { background: var(--navy3); border-radius: 10px; padding: 13px 14px; margin-bottom: 8px; border: 1px solid var(--border); }
+.transport-label { font-size: 10px; font-weight: 700; color: var(--red); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.transport-desc  { font-size: 12px; color: rgba(240,240,240,0.7); line-height: 1.65; }
+
+.contact-card { background: var(--navy3); padding: 14px; margin-bottom: 0; display: flex !important; align-items: center; gap: 12px; border: 1px solid var(--border); border-radius: 12px 12px 0 0; }
+.contact-avatar { width: 42px !important; height: 42px; border-radius: 50%; background: var(--red-dim); border: 1px solid rgba(140,214,48,0.35); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.contact-role { font-size: 11px; color: var(--muted); margin-bottom: 3px; width: auto !important; }
+.contact-name { font-size: 13px; font-weight: 500; width: auto !important; }
+
+.check-item { display: flex !important; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.check-item:last-child { border-bottom: none; }
+.check-icon { width: 20px !important; height: 20px; border-radius: 50%; background: var(--red-dim); border: 1px solid var(--red); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--red); flex-shrink: 0; margin-top: 1px; }
+.req-badge { font-size: 9px; background: var(--accent); color: #1e2b0e; padding: 1px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; font-weight: 700; }
+.check-sub { font-size: 11px; color: var(--muted); margin-top: 3px; width: auto !important; }
+
+.notice { background: var(--red-dim); border: 1px solid rgba(140,214,48,0.22); border-radius: 10px; padding: 14px; font-size: 12px; color: rgba(240,240,240,0.75); line-height: 1.75; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="top-bar">
+    <div class="logo-wrap">
+      <div class="lg-circle">LG</div>
+      <div><div class="logo-text">LG화학</div><div class="logo-sub">생명과학사업본부</div></div>
+    </div>
+    <div class="event-pill">경영위 WS</div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">🌱 경영위 멤버 및 임원, 직속조직 담당</div>
+      <div class="hero-title">'26년 생명과학사업본부<br><span>경영위 워크숍</span></div>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="2" stroke="#f0f0f0" stroke-width="1.5"/><path d="M5 1v3M11 1v3M2 7h12" stroke="#f0f0f0" stroke-width="1.5" stroke-linecap="round"/></svg>
+          3월 24일 (화)
+        </div>
+        <div class="hero-meta-item">
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.51 1.5 3.5 3.51 3.5 6c0 3.75 4.5 8.5 4.5 8.5s4.5-4.75 4.5-8.5c0-2.49-2.01-4.5-4.5-4.5z" stroke="#f0f0f0" stroke-width="1.5"/><circle cx="8" cy="6" r="1.5" fill="#f0f0f0"/></svg>
+          남산 리더십센터
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('info')" id="t-info"><span class="tab-icon">ℹ️</span>교육 안내</div>
+    <div class="tab" onclick="showTab('schedule')" id="t-schedule"><span class="tab-icon">⏰</span>시간표</div>
+    <div class="tab" onclick="showTab('location')" id="t-location"><span class="tab-icon">📍</span>오는 방법</div>
+    <div class="tab" onclick="showTab('faq')" id="t-faq"><span class="tab-icon">📋</span>FAQ</div>
+  </div>
+
+  <!-- 교육 안내 -->
+  <div class="panel active" id="p-info">
+    <div class="inner">
+      <div class="sec-title">행사 개요</div>
+      <div class="card">
+        <div class="info-row"><span class="info-label">📅 일시</span><span class="info-val">2026년 3월 24일 (화)<br><span class="info-sub">09:00 집결 → 석식 이후 종료</span></span></div>
+        <div class="info-row"><span class="info-label">📍 장소</span><span class="info-val">남산 리더십센터<br><span class="info-sub">아우룸 3 (실내 워크숍)</span></span></div>
+        <div class="info-row"><span class="info-label">👥 대상</span><span class="info-val">경영위 멤버 및 임원, 직속조직 담당</span></div>
+      </div>
+      <div class="divider"></div>
+      <div class="sec-title">주요 내용</div>
+      <div class="purpose-item">🥾 남산 트레킹으로 에너지 충전</div>
+      <div class="purpose-item">💡 리더십 실내 워크숍 진행</div>
+      <div class="purpose-item">🥂 석식 만찬으로 소통의 장 마련</div>
+      <div class="divider"></div>
+      <div class="sec-title">트레킹 코스</div>
+      <span class="tag">⏱ 2시간 이내 · 간단한 코스</span>
+
+      <div style="font-size:11px;color:var(--accent);font-weight:700;margin:10px 0 6px;">🅐 A조</div>
+      <div class="route">
+        <div class="route-stop"><div class="route-dot">🏛</div><div class="route-name">남산<br>리더십센터</div></div>
+        <div class="route-arrow">›</div>
+        <div class="route-stop"><div class="route-dot">📸</div><div class="route-name">잠두봉<br>포토아일랜드</div></div>
+        <div class="route-arrow">›</div>
+        <div class="route-stop"><div class="route-dot">🗼</div><div class="route-name">남산<br>타워</div></div>
+        <div class="route-arrow">›</div>
+        <div class="route-stop"><div class="route-dot">🍽</div><div class="route-name">그릴<br>데미그라스</div></div>
+      </div>
+
+      <div style="font-size:11px;color:var(--accent);font-weight:700;margin:14px 0 6px;">🅑 B조</div>
+      <div class="route">
+        <div class="route-stop"><div class="route-dot">🏛</div><div class="route-name">남산<br>리더십센터</div></div>
+        <div class="route-arrow">›</div>
+        <div class="route-stop"><div class="route-dot">🗼</div><div class="route-name">남산<br>타워</div></div>
+        <div class="route-arrow">›</div>
+        <div class="route-stop"><div class="route-dot">📸</div><div class="route-name">잠두봉<br>포토아일랜드</div></div>
+        <div class="route-arrow">›</div>
+        <div class="route-stop"><div class="route-dot">🍽</div><div class="route-name">그릴<br>데미그라스</div></div>
+      </div>
+      <div class="route-note">트레킹하면서 재미있는 미션을 수행하고, 남산 타워에서 기념 사진을 남겨보세요 📸</div>
+    </div>
+  </div>
+
+  <!-- 시간표 -->
+  <div class="panel" id="p-schedule">
+    <div class="inner">
+      <div class="sec-title">TIME TABLE · 3월 24일 (화)</div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">09:00</div><div class="tl-dot"></div></div>
+        <div class="tl-right"><div class="tl-title">🌱 집결 및 진행 안내</div><div class="tl-desc">남산 리더십센터 아우룸3 집결<br>당일 일정 및 트레킹 코스 안내</div><span class="tl-tag">출발 전 진행</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">09:30</div><div class="tl-dot"></div></div>
+        <div class="tl-right"><div class="tl-title">🥾 남산 트레킹</div><div class="tl-desc">자연 속에서 함께 걸으며 하루를 힘차게 시작</div><span class="tl-tag">약 2시간</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">11:30</div><div class="tl-dot"></div></div>
+        <div class="tl-right"><div class="tl-title">🍽️ 점심 식사</div><div class="tl-desc">그릴데미그라스</div><span class="tl-tag">1시간 30분</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">13:00</div><div class="tl-dot"></div></div>
+        <div class="tl-right"><div class="tl-title">🧩 퀴즈 & 아이스브레이킹</div><div class="tl-desc">본격 워크숍 전 에너지 충전!</div><span class="tl-tag">30분</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time">13:30</div><div class="tl-dot"></div></div>
+        <div class="tl-right"><div class="tl-title">💡 실내 워크숍</div><div class="tl-desc">아우룸 3에서 리더십 워크숍 진행</div><span class="tl-tag">4시간</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-time gold">17:00</div><div class="tl-dot gold"></div></div>
+        <div class="tl-right"><div class="tl-title">🥂 석식 만찬</div><div class="tl-desc">아우룸 2에서 함께하는 저녁 만찬으로 마무리</div><span class="tl-tag">이후 종료 🌙</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 오는 방법 -->
+  <div class="panel" id="p-location">
+    <div class="inner">
+      <div class="sec-title">장소 안내</div>
+      <a class="map-box" href="https://map.naver.com/v5/search/남산리더십센터" target="_blank">
+        <div class="map-pin">🗺️</div>
+        <div class="map-name">남산 리더십센터</div>
+        <div class="map-link">📍 네이버 지도로 보기 ↗</div>
+      </a>
+      <div class="card">
+        <div class="info-row"><span class="info-label">🥾 출발</span><span class="info-val">남산 리더십센터 앞</span></div>
+        <div class="info-row"><span class="info-label">🍽 점심</span><span class="info-val">그릴데미그라스</span></div>
+        <div class="info-row"><span class="info-label">💼 워크숍</span><span class="info-val">아우룸 3</span></div>
+        <div class="info-row"><span class="info-label">🥂 만찬</span><span class="info-val">아우룸 2</span></div>
+      </div>
+      <div class="divider"></div>
+      <div class="sec-title">교통 안내</div>
+      <div class="transport-item"><div class="transport-label">🚗 자가용</div><div class="transport-desc">남산 리더십센터 주차 가능<br>사전 차량 등록 완료</div></div>
+      <div class="transport-item"><div class="transport-label">🚇 지하철</div><div class="transport-desc">4호선 명동역 하차 후 도보 이동<br>3호선 동대입구역 하차 후 도보 이동</div></div>
+      <div class="transport-item"><div class="transport-label">🚌 버스</div><div class="transport-desc">남산 순환버스 이용 가능</div></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="panel" id="p-faq">
+    <div class="inner">
+      <div class="sec-title">담당자 안내</div>
+      <div class="contact-card" onclick="toggleContact()" style="cursor:pointer;">
+        <div class="contact-avatar">👥</div>
+        <div style="flex:1"><div class="contact-role">워크숍 총괄 담당</div><div class="contact-name">HRBP팀</div></div>
+        <div id="contact-arrow" style="font-size:14px;color:var(--muted);transition:transform 0.25s;">▼</div>
+      </div>
+      <div id="contact-detail" style="display:none;background:var(--navy3);border:1px solid var(--border);border-top:none;border-radius:0 0 12px 12px;padding:4px 0 8px;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--border);">
+          <div style="font-size:22px;">👤</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--white);">이희정 팀장</div>
+            <a href="tel:01067923537" style="font-size:12px;color:var(--accent);text-decoration:none;">010-6792-3537</a>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--border);">
+          <div style="font-size:22px;">👤</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--white);">정명훈 책임</div>
+            <a href="tel:01088385566" style="font-size:12px;color:var(--accent);text-decoration:none;">010-8838-5566</a>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 16px;">
+          <div style="font-size:22px;">👤</div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--white);">진장현 선임</div>
+            <a href="tel:01095356671" style="font-size:12px;color:var(--accent);text-decoration:none;">010-9535-6671</a>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="sec-title">준비물 체크리스트</div>
+      <div class="card">
+        <div class="check-item"><div class="check-icon">✓</div><div><div>트레킹 신발 <span class="req-badge">권장</span></div><div class="check-sub">운동화 또는 등산화</div></div></div>
+        <div class="check-item"><div class="check-icon">✓</div><div><div>트레킹 복장 <span class="req-badge">권장</span></div><div class="check-sub">활동하기 편한 복장</div></div></div>
+      </div>
+      <div class="divider"></div>
+      <div class="notice">
+        🌿 남산 트레킹 코스는 <strong style="color:#f9fce6">2시간 이내의 간단한 코스</strong>입니다.<br>
+        가볍고 즐거운 마음으로 참여해 주세요.<br><br>
+        💬 문의사항은 <strong style="color:#f9fce6">HRBP팀</strong>으로 연락해 주세요.
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+function showTab(name) {
+  ['info','schedule','location','faq'].forEach(function(n) {
+    document.getElementById('t-'+n).classList.toggle('active', n===name);
+    document.getElementById('p-'+n).classList.toggle('active', n===name);
+  });
+}
+function toggleContact() {
+  var d = document.getElementById('contact-detail');
+  var a = document.getElementById('contact-arrow');
+  var open = d.style.display === 'block';
+  d.style.display = open ? 'none' : 'block';
+  a.style.transform = open ? 'rotate(0deg)' : 'rotate(180deg)';
+}
+</script>
+</body>
+</html>
